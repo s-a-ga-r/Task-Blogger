@@ -149,6 +149,28 @@ app_license = "mit"
 # ---------------
 
 # scheduler_events = {
+#     "cron": {
+#         "0 0 * * *": [
+#             "task_blogger.api.create_daily_log"
+#         ]
+#     }
+# }
+
+scheduler_events = {
+    # "daily": [  # Runs once per day
+    #     "task_blogger.api.create_daily_log"
+    # ]
+	
+    "cron": {
+        "*/15 * * * *": [  # Every 15 minutes
+            "task_blogger.api.create_daily_log"
+        ]
+    }
+}
+
+
+
+# scheduler_events = {
 # 	"all": [
 # 		"task_blogger.tasks.all"
 # 	],

@@ -1,0 +1,103 @@
+@media screen and (min-width: 768px) {
+    .IssueCommentComposer-module__heading--zo78w {
+        margin-top: var(--base-size-8);
+    }
+}
+
+IssueCommentComposer-module__heading--zo78w {
+    align-self: center;
+    font-size: var(--text-title-size-small);
+    grid-area: heading;
+    margin-top: 0;
+}
+
+.Toolbar-module__toolbar--TBvFM {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 0;
+    padding: var(--base-size-8);
+}
+
+.MarkdownEditor-module__header--OuWiJ {
+    background-color: var(--bgColor-muted, var(--color-canvas-subtle));
+    border-bottom: var(--border-default);
+    border-top-left-radius: var(--borderRadius-medium);
+    border-top-right-radius: var(--borderRadius-medium);
+    display: flex;
+}
+
+
+.MarkdownInput-module__inputWrapper--fDOeo {
+    display: flex;
+    flex: auto;
+    position: relative;
+}
+
+.Footer-module__footer--rjRmQ {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--stack-gap-condensed);
+    justify-content: space-between;
+    min-height: 36px;
+    padding-top: var(--base-size-8);
+}
+
+.Footer-module__footerWrapper--ObMEq {
+    align-items: center;
+    display: flex;
+    font-size: var(--text-body-size-small);
+    gap: var(--base-size-4);
+}
+
+.Footer-module__childrenStyling--cH0iq {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--stack-gap-condensed);
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.MarkdownEditor-module__fieldSet--QLrYu {
+    appearance: none;
+    border: none;
+    min-inline-size: auto;
+}
+
+.MarkdownEditor-module__inputWrapper--L6JTI {
+    background: var(--bgColor-default);
+    border-color: var(--borderColor-default);
+    border-radius: var(--borderRadius-medium);
+    border-style: solid;
+    border-width: var(--borderWidth-thin);
+    color: var(--fgColor-default);
+    display: flex;
+    flex-direction: column;
+    min-inline-size: auto;
+    width: 100%;
+}
+
+.MarkdownEditor-module__inputWrapper--L6JTI:focus-within {
+    outline: 2px solid var(--bgColor-accent-emphasis);
+    outline-offset: -1px;
+}
+
+
+.MarkdownEditor-module__inputWrapper--L6JTI {
+    background: var(--bgColor-default)
+#0d1117
+;
+    border-color: var(--borderColor-default);
+    border-radius: var(--borderRadius-medium);
+    border-style: solid;
+    border-width: var(--borderWidth-thin);
+    color: var(--fgColor-default);
+    display: flex;
+    flex-direction: column;
+    min-inline-size: auto;
+    width: 100%;
+}

@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:TSK-{DD}-{MM}-{YY}",
+ "creation": "2025-08-13 00:13:34.042830",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "task_name",
+  "start_time",
+  "category",
+  "column_break_ugmt",
+  "project",
+  "end_time",
+  "priority",
+  "task_describe_section",
+  "description",
+  "section_break_mjym",
+  "status",
+  "blogger"
+ ],
+ "fields": [
+  {
+   "fieldname": "task_name",
+   "fieldtype": "Data",
+   "label": "Task Name"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Work\nPersonal\nLearning\nProject\nMeeting"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "End Time"
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Priority",
+   "options": "High\nMedium\nLow"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nIn Progress\nCompleted\nPostponed"
+  },
+  {
+   "fieldname": "task_describe_section",
+   "fieldtype": "Section Break",
+   "label": "Task Describe"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Markdown Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_ugmt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Projects"
+  },
+  {
+   "fieldname": "section_break_mjym",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "blogger",
+   "fieldtype": "Link",
+   "label": "Blogger",
+   "options": "User"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-09 13:03:19.108179",
+ "modified_by": "Administrator",
+ "module": "Task Blogger",
+ "name": "Project Task",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "task_name"
+}
