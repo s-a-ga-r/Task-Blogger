@@ -50,7 +50,6 @@ frappe.pages['day-to-day-v1'].on_page_load = function (wrapper) {
                     $(".timeline").empty()
 
 
-
                     page.set_title(__(formattedDate));
 
                     Logs(formattedDate)
