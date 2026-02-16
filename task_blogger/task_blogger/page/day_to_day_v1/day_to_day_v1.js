@@ -189,7 +189,7 @@ function render_template(page) {
 				
 			</div>`
 
-    $(page.body).append(page_html)
+    $(page.body).preppend(page_html)
 
 
 

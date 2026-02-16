@@ -6,12 +6,16 @@ frappe.pages['day-to-day-v3'].on_page_load = function (wrapper) {
     });
 
     render_template(page)
+
 }
 
 
 function render_template(page) {
+
+    $(".main-section").remove()
+
     const page_html = `
-            <div class="container1">
+    <div class="container1">
         <!-- Issue Header -->
         <div class="issue-header">
             <div class="issue-title">Add support for dark mode</div>
@@ -103,7 +107,160 @@ function render_template(page) {
         
     </div>`
 
-    $("#body").append(page_html)
+    $("body").prepend(page_html)
+
+    renderComments();
+
+
+
 
 
 }
+
+
+
+let comments = JSON.parse(localStorage.getItem('comments')) || [
+    {
+        id: 1,
+        author: 'alice-dev',
+        avatar: 'A',
+        time: '2 days ago',
+        content: 'This is a great feature request! Dark mode would be really helpful.',
+    },
+    {
+        id: 2,
+        author: 'bob-design',
+        avatar: 'B',
+        time: '1 day ago',
+        content: 'I agree! We could use the existing color palette for the dark theme.',
+    }
+];
+
+const editor = document.getElementById('commentEditor');
+
+function saveComments() {
+    localStorage.setItem('comments', JSON.stringify(comments));
+}
+
+function renderComments() {
+    const section = document.getElementById('commentsSection');
+    
+    if (comments.length === 0) {
+        section.innerHTML = '<div class="empty-state">No comments yet. Be the first to comment!</div>';
+        return;
+    }
+
+    section.innerHTML = comments.map(comment => `
+        <div class="comment" id="comment-${comment.id}">
+            <div class="comment-header">
+                <div class="avatar">${comment.avatar}</div>
+                <div class="comment-user">
+                    <div class="comment-username">${comment.author}</div>
+                    <div class="comment-time">${comment.time}</div>
+                </div>
+                <div class="comment-actions">
+                    <button class="action-btn" onclick="editComment(${comment.id})">Edit</button>
+                    <button class="action-btn" onclick="deleteComment(${comment.id})">Delete</button>
+                </div>
+            </div>
+            <div class="comment-body" id="content-${comment.id}">${comment.content}</div>
+            <div class="edit-mode" id="edit-${comment.id}">
+                <textarea class="editor" id="edit-text-${comment.id}" style="margin: 12px;">${comment.content}</textarea>
+                <div class="modal-actions" style="padding: 0 12px;">
+                    <button class="btn-save" onclick="saveComment(${comment.id})">Save</button>
+                    <button class="btn-cancel" onclick="cancelEdit(${comment.id})">Cancel</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addComment() {
+    const content = editor.value.trim();
+    if (!content) {
+        alert('Please enter a comment');
+        return;
+    }
+
+    const newComment = {
+        id: Date.now(),
+        author: 's-a-ga-r',
+        avatar: 'S',
+        time: 'just now',
+        content: content
+    };
+
+    comments.push(newComment);
+    saveComments();
+    renderComments();
+    editor.value = '';
+}
+
+function editComment(id) {
+    document.getElementById(`content-${id}`).style.display = 'none';
+    document.getElementById(`edit-${id}`).classList.add('show');
+    document.getElementById(`edit-text-${id}`).focus();
+}
+
+function cancelEdit(id) {
+    document.getElementById(`content-${id}`).style.display = 'block';
+    document.getElementById(`edit-${id}`).classList.remove('show');
+}
+
+function saveComment(id) {
+    const newContent = document.getElementById(`edit-text-${id}`).value.trim();
+    if (!newContent) {
+        alert('Comment cannot be empty');
+        return;
+    }
+
+    const comment = comments.find(c => c.id === id);
+    if (comment) {
+        comment.content = newContent;
+        comment.time = 'edited just now';
+        saveComments();
+        renderComments();
+    }
+}
+
+function deleteComment(id) {
+    if (confirm('Are you sure you want to delete this comment?')) {
+        comments = comments.filter(c => c.id !== id);
+        saveComments();
+        renderComments();
+    }
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+
+    if (tab === 'preview') {
+        const preview = document.getElementById('previewContent');
+        const markdown = editor.value;
+        preview.innerHTML = markdown ? `<div style="white-space: pre-wrap;">${escapeHtml(markdown)}</div>` : '<div style="color: #8b949e;">Preview will appear here...</div>';
+    }
+}
+
+function insertMarkdown(before, after) {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const text = editor.value;
+    const selectedText = text.substring(start, end);
+
+    const newText = text.substring(0, start) + before + selectedText + after + text.substring(end);
+    editor.value = newText;
+    editor.focus();
+    editor.selectionStart = start + before.length;
+    editor.selectionEnd = start + before.length + selectedText.length;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Initial render
