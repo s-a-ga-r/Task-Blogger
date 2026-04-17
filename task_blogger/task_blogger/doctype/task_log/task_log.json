@@ -6,29 +6,38 @@
  "engine": "InnoDB",
  "field_order": [
   "today",
-  "author"
+  "task_id",
+  "members"
  ],
  "fields": [
   {
    "fieldname": "today",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Today"
   },
   {
    "default": "frappe.session.user",
-   "fieldname": "author",
+   "fieldname": "members",
    "fieldtype": "Link",
-   "label": "Author",
+   "in_list_view": 1,
+   "label": "Members",
    "options": "User"
+  },
+  {
+   "fieldname": "task_id",
+   "fieldtype": "Link",
+   "label": "Task",
+   "options": "Tasks"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-10 12:03:00.504050",
+ "modified": "2026-04-09 17:16:56.610262",
  "modified_by": "Administrator",
  "module": "Task Blogger",
- "name": "Daily Log",
+ "name": "Task Log",
  "owner": "Administrator",
  "permissions": [
   {

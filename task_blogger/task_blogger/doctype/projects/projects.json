@@ -79,9 +79,10 @@
    "options": "User"
   }
  ],
+ "icon": "fa branch",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-07 21:29:46.185613",
+ "modified": "2026-04-09 16:50:18.493991",
  "modified_by": "Administrator",
  "module": "Task Blogger",
  "name": "Projects",
@@ -101,7 +102,26 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [
+  {
+   "color": "Light Blue",
+   "title": "In Progress"
+  },
+  {
+   "color": "Green",
+   "title": "Completed"
+  },
+  {
+   "color": "Yellow",
+   "title": "Postponed"
+  },
+  {
+   "color": "Orange",
+   "title": "Pending"
+  }
+ ],
+ "title_field": "project_name"
 }

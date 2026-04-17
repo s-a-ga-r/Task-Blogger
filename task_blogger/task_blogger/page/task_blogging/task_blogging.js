@@ -25,7 +25,6 @@ class TaskBlogApp {
         console.log("renderTemplate Called");
         localStorage.clear();
 
-
         //  this.page-head flex.empty();
          $('footer').remove();
          $('#build-events-overlay').remove()
@@ -52,7 +51,6 @@ class TaskBlogApp {
     initSampleData() {
         let self = this
         if (this.projects.length === 111) {
-
             this.projects = [
                 {
                     id: 1,
@@ -91,8 +89,6 @@ class TaskBlogApp {
                     author: 'TaskUser'
                 }
             ];
-            
-            
         }
         if (this.posts.length === 111) {
             this.posts = [
@@ -174,6 +170,8 @@ class TaskBlogApp {
             }
 
             if (filteredProjects.length === 0) {
+                console.log("no task found");
+                
                 projectPosts.innerHTML = `
                     <div class="empty-state">
                         <h3>No tasks found</h3>
@@ -183,8 +181,8 @@ class TaskBlogApp {
                 return;
             }
 
-            projectPosts.innerHTML = filteredProjects.map(p => `
-                <div class="project-post" data-project=${p.name}>
+            projectPosts.innerHTML = filteredProjects.map(p =>`
+                <div class="project-post" data-project-id=${p.name}>
                     <div class="project-post-header">
                         <div class="task-author-avatar">${p.user.charAt(0)}</div>
                         <div class="project-post-meta">
@@ -200,7 +198,7 @@ class TaskBlogApp {
                         <span class="project-y ${p.priority_level}">${p.priority_level.toUpperCase()}</span>
                     </div>
                     <div class="post-actions">
-                        <button class="action-btn view-btn" data-task-id=${p.name}>Read More</button>
+                        <button class="action-btn view-btn" data-project-id=${p.name}>Read More</button>
                         <button class="action-btn delete-btn" data-task-id="${p.name}">Delete</button>
                         <span class="project-time">${this.formatDateTime(p.start_date)} - ${this.formatDateTime(p.end_date)}</span>
                     </div>
@@ -212,67 +210,70 @@ class TaskBlogApp {
         });
 
 
-        console.log("rendering Projects");
-        const projectPosts = document.getElementById('projectPosts');
-        let filteredProjects = this.projects;
+        // console.log("rendering Projects");
+        // const projectPosts = document.getElementById('projectPosts');
+        // let filteredProjects = this.projects;
 
-        console.log("filteredProjects",filteredProjects);
+        // console.log("filteredProjects",filteredProjects);
 
-        switch (this.currentFilter) {
-            case 'today':
-                const today = new Date().toDateString();
-                filteredProjects = this.projects.filter(task =>
-                    new Date(task.startTime).toDateString() === today
-                );
-                break;
-            case 'high':
-                filteredProjects = this.projects.filter(task => task.priority === 'high');
-                break;
-            case 'completed':
-                filteredProjects = this.projects.filter(task => task.status === 'completed');
-                break;
-            case 'pending':
-                filteredProjects = this.projects.filter(task => task.status === 'pending');
-                break;
-        }
+        // switch (this.currentFilter) {
+        //     case 'today':
+        //         const today = new Date().toDateString();
+        //         filteredProjects = this.projects.filter(task =>
+        //             new Date(task.startTime).toDateString() === today
+        //         );
+        //         break;
+        //     case 'high':
+        //         filteredProjects = this.projects.filter(task => task.priority === 'high');
+        //         break;
+        //     case 'completed':
+        //         filteredProjects = this.projects.filter(task => task.status === 'completed');
+        //         break;
+        //     case 'pending':
+        //         filteredProjects = this.projects.filter(task => task.status === 'pending');
+        //         break;
+        // }
 
-        if (filteredProjects.length === 0) {
-            projectPosts.innerHTML = `
-                <div class="empty-state">
-                    <h3>No tasks found</h3>
-                    <p>Start by creating your first task!</p>
-                </div>
-            `;
-            return;
-        }
+        // if (filteredProjects.length === 0) {
+        //     projectPosts.innerHTML = `
+        //         <div class="empty-state">
+        //             <h3>No tasks found</h3>
+        //             <p>Start by creating your first task!</p>
+        //         </div>
+        //     `;
+        //     return;
+        // }
 
-        projectPosts.innerHTML = filteredProjects.map(task => `
-            <div class="project-post">
-                <div class="project-post-header">
-                    <div class="task-author-avatar">${task.author.charAt(0)}</div>
-                    <div class="project-post-meta">
-                        <div class="task-author-name">${task.author}</div>
-                        <div class="project-post-date">${this.formatDate(task.createdAt)}</div>
-                    </div>
-                    <div class="project-status ${task.status.replace('-', '')}">${task.status.replace('-', ' ').toUpperCase()}</div>
-                </div>
-                <h2 class="project-title">${task.title}</h2>
-                <div class="project-content project-content-preview">${task.description.split('\n')[0]}</div>
-                <div class="project-details">
-                    <span class="project-category">${task.category.toUpperCase()}</span>
-                    <span class="project-priority ${task.priority}">${task.priority.toUpperCase()}</span>
-                </div>
-                <div class="post-actions">
-                    <button class="action-btn view-btn" data-task-id=${task.id}>Read More</button>
-                    <button class="action-btn delete-btn" data-task-id="${task.id}">Delete</button>
-                    <span class="project-time">${this.formatDateTime(task.startTime)} - ${this.formatDateTime(task.endTime)}</span>
-                </div>
-            </div>
-        `).join('');
-        this.viewProjectBlog()
+        // projectPosts.innerHTML = filteredProjects.map(task => `
+        //     <div class="project-post">
+        //         <div class="project-post-header">
+        //             <div class="task-author-avatar">${task.author.charAt(0)}</div>
+        //             <div class="project-post-meta">
+        //                 <div class="task-author-name">${task.author}</div>
+        //                 <div class="project-post-date">${this.formatDate(task.createdAt)}</div>
+        //             </div>
+        //             <div class="project-status ${task.status.replace('-', '')}">${task.status.replace('-', ' ').toUpperCase()}</div>
+        //         </div>
+        //         <h2 class="project-title">${task.title}</h2>
+        //         <div class="project-content project-content-preview">${task.description.split('\n')[0]}</div>
+        //         <div class="project-details">
+        //             <span class="project-category">${task.category.toUpperCase()}</span>
+        //             <span class="project-priority ${task.priority}">${task.priority.toUpperCase()}</span>
+        //         </div>
+        //         <div class="post-actions">
+        //             <button class="action-btn view-btn" data-task-id=${task.id}>Read More</button>
+        //             <button class="action-btn delete-btn" data-task-id="${task.id}">Delete</button>
+        //             <span class="project-time">${this.formatDateTime(task.startTime)} - ${this.formatDateTime(task.endTime)}</span>
+        //         </div>
+        //     </div>
+        // `).join('');
+        // this.viewProjectBlog()
     }
 
     renderTasks(project) {
+
+        console.log(project);
+        
         self = this
         const blogPosts = document.getElementById('blogPosts');
         if (this.posts.length === 111) {
@@ -286,10 +287,10 @@ class TaskBlogApp {
         }
         // console.log(this.posts);
         console.log(`Task rendered for project ${project}`);
-        frappe.db.get_list('Project Task', {
+        frappe.db.get_list('Tasks', {
             fields: ['*'],
             filters: {
-                blogger: frappe.session.user,
+                members: frappe.session.user,
                 project:project
             },
             // order_by: 'employee_name asc',
@@ -297,8 +298,6 @@ class TaskBlogApp {
         }).then(t => {
             console.log(t);
             self.posts = t
-
-
             if (t.length === 0) {
                 blogPosts.innerHTML = `
                     <div class="empty-state">
@@ -313,7 +312,7 @@ class TaskBlogApp {
                     <div class="post-header">
                         <div class="author-avatar">${post.avatar="A"}</div>
                         <div class="post-meta">
-                            <div class="author-name">${post.blogger}</div>
+                            <div class="author-name">${post.created_by}</div>
                             <div class="post-date">${post.creation}</div>
                         </div>
                     </div>
@@ -322,7 +321,6 @@ class TaskBlogApp {
                 </div>
             `).join('');
         })
-
         blogPosts.innerHTML = this.posts.map(post => 
             console.log("post-",post)
             `
@@ -349,11 +347,12 @@ class TaskBlogApp {
             event.preventDefault();
             // event.stopPropagation();
             // Prevent the click event from propagating to the parent project-post div
-            var project = $(".project-post").data("project");
+            // var project = $(".project-post").data("project-id");
+            let project = $(this).data('project-id');
 
+            console.log("project",project);
             console.log("Task List opened of this project");
             $(".container2").html("");
-
             $('#open-modal').remove();
 
             let container_content = `
@@ -416,10 +415,9 @@ class TaskBlogApp {
             `
             $(".container2").append(container_content)
 
-            console.log("postmodel opened",$.fn.datepicker);
-            console.log(typeof $.fn.datepicker);
-
-            console.log("with window vanila js",window.AirDatepicker);
+            // console.log("postmodel opened",$.fn.datepicker);
+            // console.log(typeof $.fn.datepicker);
+            // console.log("with window vanila js",window.AirDatepicker);
 
             // new AirDatepicker('#startTime', {
             //     view: 'months',
@@ -433,22 +431,20 @@ class TaskBlogApp {
             //     dateFormat: 'MMMM yyyy'
             // })
 
-            $('#startTime').datepicker({
-                view: 'months',
-                minView: 'months',
-                dateFormat: 'MM yyyy'
-            });
+            // $('#startTime').datepicker({
+            //     view: 'months',
+            //     minView: 'months',
+            //     dateFormat: 'MM yyyy'
+            // });
 
-            $('#endTime').datepicker({
-                view: 'months',
-                minView: 'months',
-                dateFormat: 'MM yyyy'
-            });
-
+            // $('#endTime').datepicker({
+            //     view: 'months',
+            //     minView: 'months',
+            //     dateFormat: 'MM yyyy'
+            // });
 
             self.renderTasks(project);
             self.createTask()
-            
             // geting style for task model
 
         })
@@ -524,7 +520,11 @@ class TaskBlogApp {
     
     viewProject(projectId) {
         let self = this
-        const project = this.projects.find(p => p.id === projectId);
+        console.log("Projects",this.projects);
+        
+        const project = this.projects.find(p => p.name === projectId);
+        console.log("the project",project);
+        
         if (!project) {
             console.error(`Task with ID ${projectId} not found`);
             return;
@@ -537,9 +537,9 @@ class TaskBlogApp {
             <div id="blogReaderModal" class="blog-reader-content">
                 <div class="blog-reader-header">
                     <div class="blog-reader-meta">
-                        <div class="blog-reader-avatar">${project.author.charAt(0)}</div>
+                        <div class="blog-reader-avatar">${project.user.charAt(0)}</div>
                         <div class="blog-reader-author-info">
-                            <div class="blog-reader-author-name">${project.author}</div>
+                            <div class="blog-reader-author-name">${project.user}</div>
                             <div class="blog-reader-date">${this.formatDate(project.createdAt)}</div>
                         </div>
                         <div class="blog-reader-actions">
@@ -551,7 +551,7 @@ class TaskBlogApp {
                     </div>
                 </div>
                 <div class="blog-reader-content-body">
-                    <h1 class="blog-reader-title">${project.title}</h1>
+                    <h1 class="blog-reader-title">${project.project_name}</h1>
                     <div class="blog-reader-text">${project.description.replace(/\n/g, '<br>')}</div>
                         <div class="blog-reader-details">
                             <div class="blog-reader-detail-item">
@@ -560,7 +560,7 @@ class TaskBlogApp {
                             </div>
                             <div class="blog-reader-detail-item">
                                 <div class="blog-reader-detail-label">Priority</div>
-                                <div class="blog-reader-detail-value">${project.priority.charAt(0).toUpperCase() + project.priority.slice(1)}</div>
+                                <div class="blog-reader-detail-value">${project.priority_level.charAt(0).toUpperCase() + project.priority_level.slice(1)}</div>
                             </div>
                             <div class="blog-reader-detail-item">
                                 <div class="blog-reader-detail-label">Status</div>
@@ -568,15 +568,15 @@ class TaskBlogApp {
                             </div>
                             <div class="blog-reader-detail-item">
                                 <div class="blog-reader-detail-label">Start Time</div>
-                                <div class="blog-reader-detail-value">${this.formatFullDateTime(project.startTime)}</div>
+                                <div class="blog-reader-detail-value">${this.formatFullDateTime(project.start_date)}</div>
                             </div>
                             <div class="blog-reader-detail-item">
                                 <div class="blog-reader-detail-label">End Time</div>
-                                <div class="blog-reader-detail-value">${this.formatFullDateTime(project.endTime)}</div>
+                                <div class="blog-reader-detail-value">${this.formatFullDateTime(project.end_date)}</div>
                             </div>
                             <div class="blog-reader-detail-item">
                                 <div class="blog-reader-detail-label">Duration</div>
-                                <div class="blog-reader-detail-value">${this.calculateDuration(project.startTime, project.endTime)}</div>
+                                <div class="blog-reader-detail-value">${this.calculateDuration(project.start_date, project.end_date)}</div>
                             </div>
                         </div>
                     </div>
@@ -666,7 +666,7 @@ class TaskBlogApp {
         })
     }
 
-    closeViewer() {
+    closeViewer() { 
         let self = this
         $(document).on("click", ".close-viewer", function (event) {
             console.log("close clicked")
@@ -718,11 +718,10 @@ class TaskBlogApp {
         $(document).on("click", ".view-btn", function (event) {
             event.stopPropagation();
             console.log("view-blog clicked");
-            // 
-            let taskid = $(this).data("task-id")
-            console.log(taskid);
-            self.viewProject(taskid)
-
+            //
+            let project_id = $(this).data("project-id")
+            console.log("project_id :",project_id);
+            self.viewProject(project_id)
         })
     }
 

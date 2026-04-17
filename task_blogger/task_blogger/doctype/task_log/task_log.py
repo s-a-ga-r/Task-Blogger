@@ -10,7 +10,7 @@ from frappe import utils
 
 
 
-class DailyLog(Document):
+class TaskLog(Document):
 
 	def before_save(self):
 		self.today = utils.today()

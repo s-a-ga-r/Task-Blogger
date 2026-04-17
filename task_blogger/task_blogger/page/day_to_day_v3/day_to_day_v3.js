@@ -1,18 +1,273 @@
+// frappe.pages['day-to-day-v3'].on_page_load = function (wrapper) {
+// 	new DayToDay(wrapper);
+// };
+
+// class DayToDay {
+// 	constructor(wrapper) {
+// 		this.wrapper = wrapper;
+// 		this.current_folder = "Home"
+// 		this.drive_access = []
+// 		this.permissions = []
+// 		this.ParentfolderPermissions = []
+// 		// this.selectedFiles = [];
+// 		this.tags = null
+// 		this.init();
+// 	}
+
+
+//     init() {
+// 		this.page = frappe.ui.make_app_page({
+// 			parent: this.wrapper,
+// 			title: 'Todays-ToDo',
+// 			single_column: true
+// 		});
+// 		// this.fileUpload();
+// 		// frappe.msgprint(JSON.stringify(frappe.session.user))
+		
+// 		this.renderTemplate();
+// 		// this.imagePreview()
+// 		// this.PDFpreview();
+// 		// this.bindCheckboxEvents();
+// 		// this.openShared()
+// 		// this.openMedia()
+// 		// this.openDocuments()
+// 		// this.goHome();
+// 		// this.Exelpreview()
+// 	}
+
+
+//     renderTemplate(page) {
+//         $(".main-section").remove()
+
+//         const page_html = `
+//             <div class="container1">
+//                 <!-- Issue Header -->
+//                 <div class="issue-header">
+//                     <div class="issue-title">Add support for dark mode</div>
+//                     <div class="issue-meta">#42 opened 2 days ago by <strong>john-dev</strong></div>
+//                 </div>
+
+//                 <!-- Comments Section -->
+//                 <div class="comments-section" id="commentsSection">
+//                     <!-- Comments will be added here -->
+//                 </div>
+
+//                 <!-- Add Comment Section -->
+
+//                 <div class="comment-container">
+//                     <div class="comment-header">
+//                         <div class="user-avatar"></div>
+//                         <div class="comment-title">Add a comment</div>
+//                     </div>
+
+//                     <div class="editor-container">
+//                         <div class="tabs">
+//                             <button class="tab active" data-tab="write">Write</button>
+//                             <button class="tab" data-tab="preview">Preview</button>
+//                         </div>
+
+//                         <div class="toolbar">
+//                             <button class="toolbar-button" title="Bold (Ctrl+B)">
+//                                 <strong>B</strong>
+//                             </button>
+//                             <button class="toolbar-button" title="Italic (Ctrl+I)">
+//                                 <em>I</em>
+//                             </button>
+//                             <button class="toolbar-button" title="Strikethrough">
+//                                 <s>S</s>
+//                             </button>
+//                             <div class="toolbar-divider"></div>
+//                             <button class="toolbar-button" title="Unordered list">
+//                                 ☰
+//                             </button>
+//                             <button class="toolbar-button" title="Ordered list">
+//                                 1️⃣
+//                             </button>
+//                             <button class="toolbar-button" title="Quote">
+//                                 ❝
+//                             </button>
+//                             <button class="toolbar-button" title="Code">
+//                                 &lt;/&gt;
+//                             </button>
+//                             <div class="toolbar-divider"></div>
+//                             <button class="toolbar-button" title="Link">
+//                                 🔗
+//                             </button>
+//                             <button class="toolbar-button" title="Mention">
+//                                 @
+//                             </button>
+//                             <button class="toolbar-button" title="Reference">
+//                                 #
+//                             </button>
+//                             <button class="toolbar-button" title="Attach files">
+//                                 📎
+//                             </button>
+//                         </div>
+
+//                         <div class="editor-content">
+//                             <div class="tab-content active" id="write-tab">
+//                                 <textarea id="comment-text" placeholder="hello, im doing extra work today..."></textarea>
+//                             </div>
+//                             <div class="tab-content" id="preview-tab">
+//                                 <div class="preview-content" id="preview-content">
+//                                     Start typing to see preview...
+//                                 </div>
+//                             </div>
+//                         </div>
+
+//                         <div class="footer">
+//                             <div class="footer-info">
+//                                 <div class="footer-info-item" title="Markdown supported">
+//                                     📝 Markdown is supported
+//                                 </div>
+//                                 <div class="footer-info-item" title="Paste, drop, or click to add files">
+//                                     📎 Paste, drop, or click to add files
+//                                 </div>
+//                             </div>
+//                             <button class="comment-button" id="comment-btn">Comment</button>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>`
+
+//         $("body").prepend(page_html)
+
+//         this.renderComments();
+//     }
+
+//     renderComments() {
+//         const section = document.getElementById('commentsSection');
+        
+//         if (comments.length === 0) {
+//             section.innerHTML = '<div class="empty-state">No comments yet. Be the first to comment!</div>';
+//             return;
+//         }
+
+//         section.innerHTML = comments.map(comment => `
+//             <div class="comment" id="comment-${comment.id}">
+//                 <div class="comment-header">
+//                     <div class="avatar">${comment.avatar}</div>
+//                     <div class="comment-user">
+//                         <div class="comment-username">${comment.author}</div>
+//                         <div class="comment-time">${comment.time}</div>
+//                     </div>
+//                     <div class="comment-actions">
+//                         <button class="action-btn" onclick="editComment(${comment.id})">Edit</button>
+//                         <button class="action-btn" onclick="deleteComment(${comment.id})">Delete</button>
+//                     </div>
+//                 </div>
+//                 <div class="comment-body" id="content-${comment.id}">${comment.content}</div>
+//                 <div class="edit-mode" id="edit-${comment.id}">
+//                     <textarea class="editor" id="edit-text-${comment.id}" style="margin: 12px;">${comment.content}</textarea>
+//                     <div class="modal-actions" style="padding: 0 12px;">
+//                         <button class="btn-save" onclick="saveComment(${comment.id})">Save</button>
+//                         <button class="btn-cancel" onclick="cancelEdit(${comment.id})">Cancel</button>
+//                     </div>
+//                 </div>
+//             </div>
+//         `).join('');
+//     }
+
+//     saveComments() {
+//         localStorage.setItem('comments', JSON.stringify(comments));
+//     }
+
+//     async addComment(content) {
+//         // get reference name using xcall
+
+//         console.log("content ",content);
+        
+//         let reference_name = await frappe.xcall("task_blogger.task_blogger.page.day_to_day_v1.day_to_day_v1.get_docname");
+
+//         // add comment
+//         frappe
+//             .xcall("frappe.desk.form.utils.add_comment", {
+//                 reference_doctype: "Daily Log",
+//                 reference_name: reference_name,
+//                 content: content,
+//                 comment_email: frappe.session.user,
+//                 comment_by: frappe.session.user_fullname,
+//             })
+//             .then((comment) => {
+//                 if (comment) {
+//                     console.log("comment added successfully to doctype Daily Log");
+//                     frappe.utils.play_sound("click");
+//                 }
+//             });
+//     }
+// }
+
+
+
+
+
+
+
+//  above is making it in class based application
+
+
+
 frappe.pages['day-to-day-v3'].on_page_load = function (wrapper) {
-    var page = frappe.ui.make_app_page({
+    // frappe.ui.make_app_page({
+    //     parent: wrapper,
+    //     title: 'ToDo Todays',
+    //     single_column: true
+    // });
+
+    const page = frappe.ui.make_app_page({
         parent: wrapper,
-        title: 'ToDo Todays',
+        title: 'Tasking',
         single_column: true
     });
 
-    render_template(page)
+    frappe.require('/assets/task_blogger/js/component/date_carousel_small.js', () => {
+        if (!window.dateCarouselInstance) {
+            // window.dateCarouselInstance = new frappe.ui.DateCarousel();
+            console.log("heloo");
+            window.dateCarouselInstance = new frappe.ui.DateCarousel({
+                onDateChange: function (selectedDate) {
+                    console.log('Selected date:', selectedDate);
+                    // Call your render function with the selected date
+                    // const dateString = "Sat Dec 13 2025 12:12:36 GMT+0530 (India Standard Time)";
+                    // Create a Date object from the string
+                    const dateObject = new Date(selectedDate);
 
+                    // Extract year, month, and day
+                    const year = dateObject.getFullYear();
+                    // Months are 0-indexed, so add 1 and pad to ensure two digits
+                    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+                    const day = dateObject.getDate().toString().padStart(2, '0');
+
+                    // Combine into YYYY-MM-DD format
+                    // const formattedDate = `${year}-${month}-${day}`;
+
+                    const formattedDate = `${day}-${month}-${year}`;
+
+                    console.log(formattedDate);
+                    
+
+                    // render_template(page, formattedDate);
+
+
+                    // $(".timeline").empty()
+
+
+                    // page.set_title(__(formattedDate));
+
+                    // Logs(formattedDate)
+                }
+            });
+        }else{
+            console.log("what the fuck");
+        }
+    });
+    render_template(page);
+    
 }
 
-
 function render_template(page) {
-
-    $(".main-section").remove()
+    $(".main-section").empty()
+    // $(page.body).empty();  // clear properly
 
     const page_html = `
     <div class="container1">
@@ -107,14 +362,11 @@ function render_template(page) {
         
     </div>`
 
-    $("body").prepend(page_html)
+    $(".main-section").append(page_html)
+    // $(".container").append(page_html)
+
 
     renderComments();
-
-
-
-
-
 }
 
 
@@ -136,7 +388,6 @@ let comments = JSON.parse(localStorage.getItem('comments')) || [
     }
 ];
 
-const editor = document.getElementById('commentEditor');
 
 function saveComments() {
     localStorage.setItem('comments', JSON.stringify(comments));
@@ -144,6 +395,8 @@ function saveComments() {
 
 function renderComments() {
     const section = document.getElementById('commentsSection');
+
+    console.log("section",section);
     
     if (comments.length === 0) {
         section.innerHTML = '<div class="empty-state">No comments yet. Be the first to comment!</div>';
@@ -173,14 +426,59 @@ function renderComments() {
             </div>
         </div>
     `).join('');
+
+    $(document).on("click", ".comment-button", function (event) {
+        event.preventDefault();  // Prevent default behavior
+        addComment()
+        console.log("add comment button clicked");
+	});
+
+}
+
+
+async function addDailyLog(content) {
+    // get reference name using xcall
+
+    console.log("content ",content);
+    
+    let reference_name = await frappe.xcall("task_blogger.task_blogger.page.day_to_day_v1.day_to_day_v1.get_docname");
+
+    // add comment
+    frappe
+        .xcall("frappe.desk.form.utils.add_comment", {
+            reference_doctype: "Daily Log",
+            reference_name: reference_name,
+            content: content,
+            comment_email: frappe.session.user,
+            comment_by: frappe.session.user_fullname,
+        })
+        .then((comment) => {
+            if (comment) {
+                console.log("comment added successfully to doctype Daily Log");
+                frappe.utils.play_sound("click");
+            }
+        });
 }
 
 function addComment() {
-    const content = editor.value.trim();
-    if (!content) {
-        alert('Please enter a comment');
-        return;
-    }
+
+    // const editor = document.getElementById('comment-text');
+
+    // const editor = $('#comment-text');
+    // const editor = $('#comment-text');
+
+    let content = $('#comment-text').val();
+
+
+    
+
+//    const content = editor.value.trim();
+    console.log("the content is ",content);
+    
+    // if (!content) {
+    //     alert('Please enter a comment');
+    //     return;
+    // }
 
     const newComment = {
         id: Date.now(),
@@ -191,9 +489,11 @@ function addComment() {
     };
 
     comments.push(newComment);
+    addDailyLog(content)
     saveComments();
     renderComments();
-    editor.value = '';
+    $('#comment-text').val('');
+    editor.val('')
 }
 
 function editComment(id) {

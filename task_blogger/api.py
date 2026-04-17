@@ -21,7 +21,7 @@ from frappe.utils import nowdate
 
 def create_daily_log():
 
-    if not frappe.db.exists("Daily Log", {"today": nowdate()}):
+    if not frappe.db.exists("Task Log", {"today": nowdate()}):
         doc = frappe.get_doc({
             "doctype": "Daily Log",
             "today": nowdate(),

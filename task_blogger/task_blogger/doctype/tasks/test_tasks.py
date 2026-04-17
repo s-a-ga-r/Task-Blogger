@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestDailyLog(FrappeTestCase):
+class TestTasks(FrappeTestCase):
 	pass

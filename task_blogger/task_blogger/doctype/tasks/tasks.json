@@ -8,7 +8,7 @@
  "field_order": [
   "task_name",
   "start_time",
-  "category",
+  "status",
   "column_break_ugmt",
   "project",
   "end_time",
@@ -16,21 +16,14 @@
   "task_describe_section",
   "description",
   "section_break_mjym",
-  "status",
-  "blogger"
+  "members",
+  "created_by"
  ],
  "fields": [
   {
    "fieldname": "task_name",
    "fieldtype": "Data",
    "label": "Task Name"
-  },
-  {
-   "fieldname": "category",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Category",
-   "options": "Work\nPersonal\nLearning\nProject\nMeeting"
   },
   {
    "fieldname": "start_time",
@@ -54,8 +47,9 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Pending\nIn Progress\nCompleted\nPostponed"
+   "options": "Open\nWorking\nPending\nCompleted\nCancelled"
   },
   {
    "fieldname": "task_describe_section",
@@ -83,18 +77,24 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "blogger",
+   "fieldname": "members",
    "fieldtype": "Link",
-   "label": "Blogger",
+   "label": "Members",
+   "options": "User"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
    "options": "User"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-09 13:03:19.108179",
+ "modified": "2026-04-16 17:02:44.636964",
  "modified_by": "Administrator",
  "module": "Task Blogger",
- "name": "Project Task",
+ "name": "Tasks",
  "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
@@ -111,6 +111,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

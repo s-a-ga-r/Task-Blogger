@@ -12,11 +12,9 @@ frappe.pages['day-to-day-v1'].on_page_load = function (wrapper) {
     //         window.dateCarouselInstance = new frappe.ui.DateCarousel();
     //     }
     // });
-
     // frappe.require('/assets/task_blogger/js/component/date_carousel_2.js', () => {
     //     if (!window.dateCarouselInstance) {
     //         console.log("hello");
-            
     //         window.dateCarouselInstance = new frappe.ui.DateCarousel();
     //     }
     // });
@@ -189,7 +187,7 @@ function render_template(page) {
 				
 			</div>`
 
-    $(page.body).preppend(page_html)
+    $(page.body).append(page_html)
 
 
 
@@ -435,10 +433,14 @@ async function addComment(content) {
     // get reference name using xcall
     let reference_name = await frappe.xcall("task_blogger.task_blogger.page.day_to_day_v1.day_to_day_v1.get_docname");
 
+    if(!reference_name){
+        frappe.throw("Daily log not created ");
+    }
+
     // add comment
     frappe
         .xcall("frappe.desk.form.utils.add_comment", {
-            reference_doctype: "Daily Log",
+            reference_doctype: "Task Log",
             reference_name: reference_name,
             content: content,
             comment_email: frappe.session.user,
